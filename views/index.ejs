@@ -6,6 +6,38 @@
 </head>
 <body>
     <h1>Coding Dojo Message Board</h1>
+
+    <form action="/messages/create" method="post">
+        <input type="text" name="name" placeholder="name">
+        <br>
+        <textarea name="message" id="message" placeholder="message"></textarea>
+        <br>
+        <input type="submit" value="Post message">
+    </form>
+    <hr>
+    <% for( i in messages ){ %>
+        <h4><%= messages[i].name %>: <%= messages[i].message %></h4>
+        <!-- <p>Message _id: <%= messages[i]._id %></p> -->
+        <!-- <p>Message id: <%= messages[i].id %></p> -->
+        <% console.log( messages[i] ) %>
+        <% for( j in comments ){ %>
+            <!-- <p>Comment message id: <%= comments[j]._message %></p> -->
+            
+            <% if( messages[i].id == comments[j]._message ){ %>
+                <p><%= comments[j].name %>: <%= comments[j].comment %></p>
+            <% } %>
+        <% } %>
+
+        <form action="/comments/create/message/<%= messages[i]._id %>" method="post">
+            <input type="text" name="name" placeholder="name">
+            <br>
+            <textarea name="comment" id="comment" placeholder="comment"></textarea>
+            <br>
+            <input type="submit" value="Post comment">
+        </form>
+        <hr>
+    <% } %>
+
     
 </body>
 </html>
